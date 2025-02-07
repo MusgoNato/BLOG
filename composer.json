@@ -11,5 +11,7 @@
             "email": "131496781+MusgoNato@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "league/plates": "^3.6"
+    }
 }
