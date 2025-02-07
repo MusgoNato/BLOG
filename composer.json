@@ -1,0 +1,15 @@
+{
+    "name": "hugoj/blog",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hugo Josué lema das neves",
+            "email": "131496781+MusgoNato@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
