@@ -15,7 +15,7 @@ class Controller
      * @throws \Exception
      * @return void
      */
-    public static function view(string $view, array $data = null)
+    public static function view(string $view, array $data = [])
     {
         $viewsPath = dirname(__FILE__, 2) . "/views";
         

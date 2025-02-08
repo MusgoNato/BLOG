@@ -3,6 +3,10 @@
 require_once '../vendor/autoload.php';
 require_once '../routes/router.php';
 
+// Fazer a conexao com o banco de dados primeiro
+
+
+
 try
 {
     $uri = parse_url($_SERVER["REQUEST_URI"])["path"];

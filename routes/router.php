@@ -12,7 +12,7 @@ function load(string $controller, string $method)
     try
     {
         // Caminho relativo das classes
-        $controllerNamespace = "app\\controller\\{$controller}";
+        $controllerNamespace = "app\\controllers\\{$controller}";
 
         if(!class_exists($controllerNamespace))
         {   
@@ -40,7 +40,13 @@ $routers =
 [
     "GET" =>
     [
-        "/" => fn() => load("HomeController", "home"),
+        // Primeira rota ao iniciar o programa
+        "/" => fn() => load("HomeController", "index"),
+    ],
+
+    "POST" =>
+    [
+        "/autenticar" => fn() => load("AutenticationController", "VerifyUser"),
     ]
 ];
 

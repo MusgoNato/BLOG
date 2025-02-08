@@ -4,9 +4,9 @@ namespace app\controllers;
 
 class HomeController
 {
-    public function home($params)
+    public function index($params)
     {
-        return Controller::view("master");
+        return Controller::view("home");
     }
 }
 
