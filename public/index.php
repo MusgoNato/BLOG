@@ -1,10 +1,18 @@
 <?php
 
+use app\database\Banco;
+
 require_once '../vendor/autoload.php';
 require_once '../routes/router.php';
 
 // Fazer a conexao com o banco de dados primeiro
-
+try
+{
+    $banco = Banco::getConection();
+}catch(PDOException $e)
+{
+    echo $e->getMessage();
+}
 
 
 try

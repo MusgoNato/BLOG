@@ -42,11 +42,14 @@ $routers =
     [
         // Primeira rota ao iniciar o programa
         "/" => fn() => load("HomeController", "index"),
+        "/newCadastre" => fn() => load("CadastreController", "index"),
+        "/logout" => fn() => load("HomeController", "logout"),   
     ],
 
     "POST" =>
     [
-        "/autenticar" => fn() => load("AutenticationController", "VerifyUser"),
+        "/" => fn() => load("AutenticationController", "VerifyUser"),
+        "/newCadastre" => fn() => load("CadastreController", "Createuser"),
     ]
 ];
 

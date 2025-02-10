@@ -7,6 +7,8 @@
     <title>Sistema</title>
 </head>
 <body>  
+    <h1>Bem Vindo <?= $user ?></h1>
+    <a href="/logout">Sair da aplicação</a>
     <!-- Obrigatorio -->
     <?= $this->section("content") ?>
 </body>
