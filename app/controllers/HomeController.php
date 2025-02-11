@@ -4,7 +4,7 @@ namespace app\controllers;
 
 class HomeController
 {
-    public function index($params)
+    public function index()
     {
         session_start();
 

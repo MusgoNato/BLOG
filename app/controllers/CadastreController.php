@@ -26,11 +26,14 @@ class CadastreController
             header("Location: /");
         }
 
+        $HashPass = password_hash($params->senha, PASSWORD_DEFAULT);
+
+
         $conn = Banco::getConection();
         $sql = $conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
         $sql->bindParam(':name', $params->nome);
         $sql->bindParam(':email', $params->email);
-        $sql->bindParam(':password', $params->senha);
+        $sql->bindParam(':password', $HashPass);
 
         $sql->execute();
 

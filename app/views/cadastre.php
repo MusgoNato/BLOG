@@ -10,7 +10,7 @@
     <form action="/newCadastre" method="post">
         <input type="text" name="nome" placeholder="Insira seu nome" required>
         <input type="email" name="email" placeholder="Insira seu email" required>
-        <input type="password" name="senha" placeholder="Insira sua senha" required>
+        <input type="text" name="senha" placeholder="Insira sua senha" required>
         <button type="submit">Enviar</button>
     </form>
 </body>

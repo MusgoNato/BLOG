@@ -18,10 +18,14 @@ class Banco
             $this->conn = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->user, $this->pass);
         }catch(\PDOException $e) 
         {
-            echo $e->getMessage();
+            die("Não foi possivel se conectar ao banco de dados!");
         }
     }
 
+    /**
+     * Summary of getConection
+     * Single Ton
+     */
     public static function getConection()
     {
         if(self::$instance === null)
@@ -32,7 +36,18 @@ class Banco
         return self::$instance->conn;
     }
 
+    /**
+     * Summary of __clone
+     * Evita que seja clonada a classe
+     * @return void
+     */
     private function __clone(){}
+
+    /**
+     * Summary of __wakeup
+     * Evita a desserialização do objeto
+     * @return void
+     */
     public function __wakeup(){}
 
 }

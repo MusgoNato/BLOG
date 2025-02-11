@@ -8,8 +8,8 @@
 <body>
     <h1>Hugo Blog</h1>
     <form action="/" method="post">
-        <input type="email" name="email" placeholder="Insira seu email" required>
-        <input type="password" name="senha" placeholder="Insira sua senha" required>
+        <input type="email" name="email" placeholder="Insira seu email" value="123@gmail.com" required>
+        <input type="text" name="senha" placeholder="Insira sua senha" value="123" required>
         <button type="submit">Entrar</button>
     </form>
     <a href="/newCadastre">Novo Cadastro</a>

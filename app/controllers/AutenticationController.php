@@ -22,21 +22,24 @@ class AutenticationController
 
         $user = $sql->fetchObject();
 
-        if(!empty($user))
+        if(password_verify($params->senha, $user->password))
         {
-            $_SESSION['usuario'] = 
-            [
-                'id' => $user->id,
-                'nome' => $user->name,
-                'email' => $user->email,
-            ];
+            if(!empty($user))
+            {
+                $_SESSION['usuario'] = 
+                [
+                    'id' => $user->id,
+                    'nome' => $user->name,
+                    'email' => $user->email,
+                ];
 
-            return Controller::view("master", ["user" => $user->name]);    
+                return Controller::view("master", ["user" => $user->name]);
+            }
         }
-
+        
         // Caso nao exista o usuario, define a mensagem para visualização na view master
-        return Controller::view("home", ["ERROR_MSG_LOGIN" => "Usuario ou senha incorretos"]);    
-    }
+        return Controller::view("home", ["ERROR_MSG_LOGIN" => "Usuario ou senha incorretos"]); 
+    }   
 }
 
 ?>
