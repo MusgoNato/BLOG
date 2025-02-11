@@ -5,7 +5,11 @@ namespace app\controllers;
 use app\database\Banco;
 
 class CadastreController
-{
+{   
+    /**
+     * Summary of index
+     * Carrega a view correspondente caso exista sessao do usuario ativa ou não
+     */
     public function index()
     {
         session_start();
@@ -17,6 +21,11 @@ class CadastreController
         return Controller::view("cadastre");
     }
 
+    /**
+     * Summary of CreateUser
+     * Cria cadastro do usuario
+     * @param object $params
+     */
     public function CreateUser(object $params)
     {
         session_start();

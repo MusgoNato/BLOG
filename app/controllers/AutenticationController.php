@@ -31,7 +31,7 @@ class AutenticationController
                 'email' => $user->email,
             ];
 
-            return Controller::view("master", ["user" => $user->name]);    
+            header("Location: /");    
         }
 
         // Caso nao exista o usuario, define a mensagem para visualização na view master

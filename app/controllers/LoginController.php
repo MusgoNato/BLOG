@@ -6,20 +6,31 @@ use PDO;
 
 class LoginController
 {
-    public function index($params)
+    /**
+     * Summary of index
+     * Carrega a view correspondente do usuario logado ou não
+     */
+    public function index()
     {
         session_start();
 
+        // Se existe variavel de sessao, usuario ja esta autenticado, pego seu nome juntamente com os posts criados no banco de dados
         if(isset($_SESSION['usuario']))
         {
             $userSession = $_SESSION['usuario']['nome'];
-            $posts = $this->getAllposts();
+            $instancia = new PostsController();
+            $posts = $instancia->getAllPosts();
             return Controller::view("home", ["user" => $userSession, "posts" => $posts]);            
         }
 
         return Controller::view("login");
     }
 
+    /**
+     * Summary of logout
+     * Saida do Usuario da aplicação
+     * @return never
+     */
     public function logout()
     {
         session_start();
@@ -28,18 +39,6 @@ class LoginController
 
         header("Location: /");
         exit();
-    }
-
-
-    // Modificar essa função para tornar ela uma unica instancia, assim em todo momento pego somente ela com todos os posts
-    public function getAllposts()
-    {
-        $conn = Banco::getConection();
-        $sql = $conn->prepare("SELECT * FROM posts ORDER BY created_at DESC");
-        $sql->execute();
-        
-        $posts = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return $posts;
     }
 }
 
