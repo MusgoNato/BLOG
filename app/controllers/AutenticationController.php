@@ -35,7 +35,7 @@ class AutenticationController
         }
 
         // Caso nao exista o usuario, define a mensagem para visualização na view master
-        return Controller::view("home", ["ERROR_MSG_LOGIN" => "Usuario ou senha incorretos"]);    
+        return Controller::view("login", ["ERROR_MSG_LOGIN" => "Usuario ou senha incorretos"]);    
     }
 }
 

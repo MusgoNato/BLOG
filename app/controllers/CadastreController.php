@@ -34,7 +34,7 @@ class CadastreController
 
         $sql->execute();
 
-        return Controller::view("home", ["ERROR_MSG_LOGIN" => ""]);
+        return Controller::view("login", ["ERROR_MSG_LOGIN" => ""]);
     }   
 }
 

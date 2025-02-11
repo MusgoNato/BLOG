@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h1>Hugo Blog</h1>
-    <form action="/" method="post">
-        <input type="email" name="email" placeholder="Insira seu email" required>
-        <input type="password" name="senha" placeholder="Insira sua senha" required>
-        <button type="submit">Entrar</button>
-    </form>
-    <a href="/newCadastre">Novo Cadastro</a>
+<?php $this->layout("master", ["title" => "Página Inicial"]) ?>
 
-    <?php if(isset($ERROR_MSG_LOGIN)): ?>
-        <?php echo $ERROR_MSG_LOGIN; ?>
-    <?php else:?>
-        <?php echo ""; ?>
-    <?php endif; ?>
-</body>
-</html>
+<?php $this->start("AllPosts") ?>
+<div class="container mt-4">
+    <div class="row">
+    <?php foreach($posts as $post): ?>
+        <div class="col-md-4 mb-4">     
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $post['title'] ?></h5>
+                    <p class="card-text"><?= $post['content'] ?></p>
+                    <a href="/post/#" class="btn btn-primary">Ler mais</a>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    </div>
+</div>
+<?php $this->end() ?>

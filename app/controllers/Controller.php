@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use League\Plates\Engine;
 use Exception;
+use app\database\Banco;
+use PDO;
 
 class Controller
 {
@@ -29,6 +31,7 @@ class Controller
         echo $templates->render($view, $data);
 
     }
+
 }
 
 

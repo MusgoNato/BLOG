@@ -7,8 +7,36 @@
     <title>Sistema</title>
 </head>
 <body>  
-    <h1>Bem Vindo <?= $user ?></h1>
-    <a href="/logout">Sair da aplicação</a>
+    <h1>Bem Vindo <?= $_SESSION['usuario']['nome'] ?></h1>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Meu Blog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">Postagens</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/perfil">Meu Perfil</a>
+                    </li>
+                </ul>
+                <span class="navbar-text me-3 text-white">Olá, <?= $_SESSION['usuario']['nome'] ?>!</span>
+                <a href="/logout" class="btn btn-outline-danger">Sair</a>
+            </div>
+        </div>
+    </nav>
+
+    <?= $this->section("AllPosts") ?>
+
+
     <!-- Obrigatorio -->
     <?= $this->section("content") ?>
 </body>

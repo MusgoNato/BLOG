@@ -41,9 +41,9 @@ $routers =
     "GET" =>
     [
         // Primeira rota ao iniciar o programa
-        "/" => fn() => load("HomeController", "index"),
+        "/" => fn() => load("LoginController", "index"),
         "/newCadastre" => fn() => load("CadastreController", "index"),
-        "/logout" => fn() => load("HomeController", "logout"),   
+        "/logout" => fn() => load("LoginController", "logout"),   
     ],
 
     "POST" =>
