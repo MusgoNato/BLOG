@@ -12,7 +12,7 @@
                     <p class="card-text">
                         <small class="text-muted">
                             Criado por 
-                            <a href="/perfil/<?= $post['user_id'] ?>">
+                            <a href="/profile/<?= $post['user_id'] ?>">
                                 <?= htmlspecialchars($post['author_name']) ?>
                             </a>
                         </small>

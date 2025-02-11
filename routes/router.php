@@ -44,6 +44,7 @@ $routers =
         "/" => fn() => load("LoginController", "index"),
         "/newCadastre" => fn() => load("CadastreController", "index"),
         "/logout" => fn() => load("LoginController", "logout"),   
+        "/userprofile" => fn() => load("ProfileController", "ShowProfile"),
     ],
 
     "POST" =>
