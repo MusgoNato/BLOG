@@ -45,12 +45,14 @@ $routers =
         "/newCadastre" => fn() => load("CadastreController", "index"),
         "/logout" => fn() => load("LoginController", "logout"),   
         "/userprofile" => fn() => load("ProfileController", "ShowProfile"),
+        "/editprofile" => fn() => load("ProfileController", "EditProfile"),
     ],
 
     "POST" =>
     [
         "/" => fn() => load("AutenticationController", "VerifyUser"),
         "/newCadastre" => fn() => load("CadastreController", "Createuser"),
+        "/editprofile" => fn() => load("ProfileController", "UpdateUser"),
     ]
 ];
 
