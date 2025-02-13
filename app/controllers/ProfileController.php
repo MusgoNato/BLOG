@@ -34,10 +34,10 @@ class ProfileController
     {
         session_start();
 
-        $Userid = $_SESSION['usuario']['id'];
+        $userid = (int)$_SESSION['usuario']['id'];
 
         $conn = Banco::getConection();
-        $sql = $conn->prepare("SELECT * FROM users WHERE id = '{$Userid}'");
+        $sql = $conn->prepare("SELECT * FROM users WHERE id = '{$userid}'");
         $sql->execute();
 
         return $sql->fetchObject();
@@ -45,17 +45,16 @@ class ProfileController
 
     public function UpdateUser($params)
     {
-        session_start();
+        //Tinha um session aqui
+        // $user = $this->getUSerProfile();
+        
+        // $conn = Banco::getConection();
+        // $sql = $conn->prepare("UPDATE users SET name = :name WHERE id = :id");
+        // $sql->bindParam(':name', $params->nome);
+        // $sql->bindParam(':id', $user->id);
+        // $sql->execute();
 
-        $user = (object)$_SESSION['usuario'];
-
-        $params->email = isset($params->email) ? $params->email : $_SESSION['usuario']['email'];
-
-        $conn = Banco::getConection();
-        $sql = $conn->prepare("UPDATE users SET name = :name, email = :email WHERE id = :id");
-        $sql->bindParam(':name', $params->nome);
-        $sql->bindParam(':email', $params->email);
-        $sql->bindParam(':id', $user->id);
+        // return Controller::view("home");
     }
 }
 

@@ -11,7 +11,7 @@ try
     $banco = Banco::getConection();
 }catch(PDOException $e)
 {
-    echo $e->getMessage();
+    die('Não foi possivel a conexao com o banco de dados');
 }
 
 
