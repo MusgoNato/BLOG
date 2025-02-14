@@ -45,16 +45,18 @@ class ProfileController
 
     public function UpdateUser($params)
     {
-        //Tinha um session aqui
-        // $user = $this->getUSerProfile();
+        $user = $this->getUSerProfile();
         
-        // $conn = Banco::getConection();
-        // $sql = $conn->prepare("UPDATE users SET name = :name WHERE id = :id");
-        // $sql->bindParam(':name', $params->nome);
-        // $sql->bindParam(':id', $user->id);
-        // $sql->execute();
+        $conn = Banco::getConection();
+        $sql = $conn->prepare("UPDATE users SET name = :name WHERE id = :id");
+        $sql->bindParam(':name', $params->nome);
+        $sql->bindParam(':id', $user->id);
+        $sql->execute();
 
-        // return Controller::view("home");
+        // Atualizo a sessao
+        $_SESSION['usuario']['nome'] = $params->nome;
+
+        header("Location: /");
     }
 }
 
