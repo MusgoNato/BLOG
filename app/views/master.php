@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Sistema</title>
 </head>
-<body> 
+<body class="d-flex flex-column min-vh-100"> 
 
     <h1>Bem Vindo <?= $_SESSION['usuario']['nome'] ?></h1>
 
@@ -39,6 +39,18 @@
 
     <!-- Obrigatorio -->
     <?= $this->section("content") ?>
+
+     <!-- Rodapé fixo no final da página -->
+     <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div class="container">
+            <p class="mb-1">&copy; <?= date("Y") ?> Meu Blog. Todos os direitos reservados.</p>
+            <p class="small">Desenvolvido por <a href="#" class="text-white fw-bold">Sua Empresa</a></p>
+            <div>
+                <a href="#" class="text-white me-3">Política de Privacidade</a>
+                <a href="#" class="text-white">Termos de Uso</a>
+            </div>
+        </div>
+    </footer>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

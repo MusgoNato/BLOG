@@ -12,22 +12,24 @@ class ProfileController
      * Resposavel pela visualização do usuario
      * @param mixed $params
      */
-    public function ShowProfile($params)
-    {    
+    public function ShowProfile()
+    {   
         $user = $this->getUSerProfile();
 
         return Controller::view("userprofile", ["user" => $user]);
+
     }
 
     /**
      * Summary of EditProfile
-     * Responsavel pela edição do usuario
+     * Tomada de decisao, ou salva a edicao do usuario feita ou é excluido o cadastro do usuario
      * @return void
      */
     public function EditProfile()
     {
         $user = $this->getUSerProfile();
         return Controller::view("editprofile", ["user" => $user]);
+
     }
 
     public function getUSerProfile()
@@ -46,16 +48,33 @@ class ProfileController
     public function UpdateUser($params)
     {
         $user = $this->getUSerProfile();
+
+        switch($params->decision)
+        {
+            case 'save':
+                $conn = Banco::getConection();
+                $sql = $conn->prepare("UPDATE users SET name = :name WHERE id = :id");
+                $sql->bindParam(':name', $params->nome);
+                $sql->bindParam(':id', $user->id);
+                $sql->execute();
+                break;
+            case 'delete':
+                $conn = Banco::getConection();
+                $sql = $conn->prepare("DELETE FROM users WHERE id = :id");
+                $sql->bindParam(':id', $user->id);
+                $sql->execute();
+
+                // Como o usuario foi deletado, limpo o vetor global contendo suas informações
+                session_unset();
+                break;
+        }   
         
-        $conn = Banco::getConection();
-        $sql = $conn->prepare("UPDATE users SET name = :name WHERE id = :id");
-        $sql->bindParam(':name', $params->nome);
-        $sql->bindParam(':id', $user->id);
-        $sql->execute();
-
-        // Atualizo a sessao
-        $_SESSION['usuario']['nome'] = $params->nome;
-
+        if(isset($_SESSION['usuario']['nome']))
+        {
+            // Atualizo a sessao
+           $_SESSION['usuario']['nome'] = $params->nome;
+        }
+        
         header("Location: /");
     }
 }

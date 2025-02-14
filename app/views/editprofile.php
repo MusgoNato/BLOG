@@ -53,8 +53,8 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success">Salvar usuário</button>
-                                    <button type="submit" class="btn btn-danger">Excluir usuário</button>
+                                    <button type="submit" name="decision" class="btn btn-success" value="save">Salvar usuário</button>
+                                    <button type="submit" name="decision" class="btn btn-danger" value="delete">Excluir usuário</button>
                                 </div>
                             </form>
                         </div>

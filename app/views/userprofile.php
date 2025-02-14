@@ -1,5 +1,6 @@
 <?php $this->layout("master") ?>
 <?php if(isset($_SESSION['usuario']['id']) != $_GET['id']){die("Usuario invalido");} ?>
+
 <div class="container mt-5">
     <!-- Título do Perfil -->
     <div class="row">
