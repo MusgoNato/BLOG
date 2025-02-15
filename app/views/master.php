@@ -26,7 +26,7 @@
                         <a class="nav-link" href="/posts">Postagens</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/userprofile?id=<?= htmlspecialchars($_SESSION['usuario']['id']) ?>">Meu Perfil</a>
+                        <a class="nav-link" href="/userprofile">Meu Perfil</a>
                     </li>
                 </ul>
                 <span class="navbar-text me-3 text-white">Olá, <?= $_SESSION['usuario']['nome'] ?>!</span>

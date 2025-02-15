@@ -14,10 +14,10 @@ class ProfileController
      */
     public function ShowProfile()
     {   
-        $user = $this->getUSerProfile();
+        $user = $this->getUSerProfile();    
 
         return Controller::view("userprofile", ["user" => $user]);
-
+    
     }
 
     /**
@@ -36,6 +36,10 @@ class ProfileController
     {
         session_start();
 
+        if(!isset($_SESSION['usuario']['id']))
+        {
+            header("Location: /");  
+        }
         $userid = (int)$_SESSION['usuario']['id'];
 
         $conn = Banco::getConection();
