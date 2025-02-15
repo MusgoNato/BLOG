@@ -23,7 +23,7 @@
                         <a class="nav-link active" href="/">Início</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/posts">Postagens</a>
+                        <a class="nav-link" href="/myposts">Meus Posts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/userprofile">Meu Perfil</a>

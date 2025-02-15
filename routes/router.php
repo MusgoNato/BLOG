@@ -46,6 +46,8 @@ $routers =
         "/logout" => fn() => load("LoginController", "logout"),   
         "/userprofile" => fn() => load("ProfileController", "ShowProfile"),
         "/editprofile" => fn() => load("ProfileController", "EditProfile"),
+        "/myposts" => fn() => load("MyPostsController", "index"),
+        "/myposts/newpost" => fn() => load("MyPostsController", "newPost"),
     ],
 
     "POST" =>
@@ -53,6 +55,7 @@ $routers =
         "/" => fn() => load("AutenticationController", "VerifyUser"),
         "/newCadastre" => fn() => load("CadastreController", "Createuser"),
         "/editprofile" => fn() => load("ProfileController", "UpdateUser"),
+        "/myposts/newpost" => fn() => load("MyPostsController", "PublicNewPost"),
     ]
 ];
 

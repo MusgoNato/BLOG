@@ -46,5 +46,3 @@ class CadastreController
         return Controller::view("login", ["ERROR_MSG_LOGIN" => ""]);
     }   
 }
-
-?>

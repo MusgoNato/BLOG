@@ -82,6 +82,3 @@ class ProfileController
         header("Location: /");
     }
 }
-
-
-?>

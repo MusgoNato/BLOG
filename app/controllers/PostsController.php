@@ -40,5 +40,3 @@ class PostsController
         return $this->posts;
     }
 }
-
-?>

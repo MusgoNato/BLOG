@@ -41,5 +41,3 @@ class LoginController
         exit();
     }
 }
-
-?>

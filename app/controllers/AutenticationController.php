@@ -38,5 +38,3 @@ class AutenticationController
         return Controller::view("login", ["ERROR_MSG_LOGIN" => "Usuario ou senha incorretos"]);    
     }
 }
-
-?>
