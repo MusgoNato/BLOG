@@ -58,6 +58,7 @@ $routers =
         "/newCadastre" => fn() => load("CadastreController", "Createuser"),
         "/editprofile" => fn() => load("ProfileController", "UpdateUser"),
         "/myposts/newpost" => fn() => load("MyPostsController", "PublicNewPost"),
+        "/myposts/editpost" => fn() => load("MyPostsController", "UpdatePost"),    
     ]
 ];
 

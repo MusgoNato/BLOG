@@ -17,7 +17,7 @@ class PostsController
         {
             header("Location: /");
         }
-        $post = $this->getPostbyId($id);
+        $post = PostsController::getPostById($id);
 
         return Controller::view("single-post", ["post" => $post]);
     }
@@ -54,7 +54,7 @@ class PostsController
         return $this->posts;
     }
 
-    public function getPostById($postId)
+    public static function getPostById($postId)
     {
         $conn = Banco::getConection();
 

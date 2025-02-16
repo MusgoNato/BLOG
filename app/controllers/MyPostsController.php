@@ -29,7 +29,7 @@ class MyPostsController
             header("Location: /");
         }
 
-        return Controller::view("editpost");
+        return Controller::view("createpost");
     }
 
     public function getAllMyPosts()
@@ -71,5 +71,35 @@ class MyPostsController
         $posts = $this->getAllMyPosts();
         return Controller::view("myposts", ["posts" => $posts]);
 
+    }
+
+    public function UpdatePost($params)
+    {
+        session_start();
+
+        switch($params->decision)
+        {
+            case 'save':
+                $conn = Banco::getConection();
+                $sql = $conn->prepare("UPDATE posts SET title = :title, content = :content WHERE id = :id");
+                $sql->bindParam(':title', $params->titulo);
+                $sql->bindParam(':content', $params->conteudo);
+                $sql->bindParam(':id', $params->idpost);              
+                $sql->execute();
+
+                header("Location: /myposts");
+                break;
+            case 'delete':
+                $conn = Banco::getConection();
+                $sql = $conn->prepare("DELETE FROM posts WHERE id = :idpost");
+                $sql->bindParam(':idpost', $params->idpost);
+                $sql->execute();
+
+                header("Location: /myposts");
+            case 'edit':
+                $post = PostsController::getPostById($params->idpost);
+                return Controller::view("editpost", ["post" => $post]);
+        }
+        
     }
 }
