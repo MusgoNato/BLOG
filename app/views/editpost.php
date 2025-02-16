@@ -25,7 +25,7 @@
                         <!-- Botão de Envio -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-success" name="decision" value="save">Salvar</button>
-                            <a href="/" class="btn btn-secondary">Cancelar</a>
+                            <a href="/myposts" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>
                 </div>
