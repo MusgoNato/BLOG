@@ -7,7 +7,7 @@
  * @param string $method
  * @return void
  */
-function load(string $controller, string $method)
+function load(string $controller, string $method, ...$params)
 {
     try
     {
@@ -25,9 +25,10 @@ function load(string $controller, string $method)
         {
             throw new Exception("O metodo {$method} não existe no controller {$controller}");
         }
+        
+        $requestData = (object)$_REQUEST;
 
-        // Passo como metodo quaisquer GET ou POST que for feita no meu site. Chamando o objeto que foi criado
-        $controllerInstance->$method((object)$_REQUEST);
+        $controllerInstance->$method($requestData, ...$params);   
 
     }catch(Exception $e)
     {
@@ -48,6 +49,7 @@ $routers =
         "/editprofile" => fn() => load("ProfileController", "EditProfile"),
         "/myposts" => fn() => load("MyPostsController", "index"),
         "/myposts/newpost" => fn() => load("MyPostsController", "newPost"),
+        "/post/([0-9]+)" => fn($id) => load("PostsController", "showSinglePost", (int)$id),
     ],
 
     "POST" =>

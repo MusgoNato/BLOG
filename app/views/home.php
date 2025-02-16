@@ -17,7 +17,7 @@
                             </a>
                         </small>
                     </p>
-                    <a href="/post/#" class="btn btn-primary">Ler mais</a>
+                    <a href="/post/<?= htmlspecialchars($post['id']) ?>" class="btn btn-primary">Ler mais</a>
                 </div>
             </div>
         </div>

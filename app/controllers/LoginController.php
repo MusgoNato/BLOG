@@ -10,7 +10,7 @@ class LoginController
      * Summary of index
      * Carrega a view correspondente do usuario logado ou não
      */
-    public function index()
+    public function index(...$params)
     {
         session_start();
 

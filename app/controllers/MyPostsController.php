@@ -10,6 +10,11 @@ class MyPostsController
     {
         session_start();
 
+        if(!isset($_SESSION['usuario']))
+        {
+            header("Location: /");
+        }
+
         $posts = $this->getAllMyPosts();
 
         return Controller::view("myposts", ["posts" => $posts]);
@@ -18,6 +23,12 @@ class MyPostsController
     public function newPost()
     {
         session_start();
+
+        if(!isset($_SESSION['usuario']))
+        {
+            header("Location: /");
+        }
+
         return Controller::view("editpost");
     }
 

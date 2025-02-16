@@ -10,7 +10,7 @@ class CadastreController
      * Summary of index
      * Carrega a view correspondente caso exista sessao do usuario ativa ou não
      */
-    public function index()
+    public function index($params)
     {
         session_start();
         

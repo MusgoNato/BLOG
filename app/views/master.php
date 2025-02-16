@@ -44,7 +44,7 @@
      <footer class="bg-dark text-white text-center py-3 mt-auto">
         <div class="container">
             <p class="mb-1">&copy; <?= date("Y") ?> Meu Blog. Todos os direitos reservados.</p>
-            <p class="small">Desenvolvido por <a href="#" class="text-white fw-bold">Sua Empresa</a></p>
+            <p class="small">Desenvolvido por <a href="#" class="text-white fw-bold">Hugo inc</a></p>
             <div>
                 <a href="#" class="text-white me-3">Política de Privacidade</a>
                 <a href="#" class="text-white">Termos de Uso</a>
