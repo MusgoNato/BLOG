@@ -17,7 +17,13 @@ class PostsController
         {
             header("Location: /");
         }
+
         $post = PostsController::getPostById($id);
+
+        if($post === false)
+        {
+            return Controller::view("errorpage");
+        }
 
         return Controller::view("single-post", ["post" => $post]);
     }

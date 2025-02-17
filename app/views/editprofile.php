@@ -11,27 +11,25 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-            <div class="card-header text-center bg-dark text-white">
-                <h5>Detalhes do Usuário</h5>
-            </div>
-                <div class="card-body">
-                    <div class="row">
+                <div class="card-header text-center bg-dark text-white">
+                    <h5>Detalhes do Usuário</h5>
+                </div>
+                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                    <div class="row w-100 justify-content-center">
                         <!-- Informações do Usuário -->
-                        <div class="col-md-8">
+                        <div class="col-md-8 text-center">
                             <form action="/editprofile" method="POST" enctype="multipart/form-data">
                                 <!-- Foto do Usuário -->
-                                <div class="text-center">
-                                    <!-- Foto do Usuário -->
+                                <div class="text-center mb-4">
                                     <img id="profileImage" src="<?= !empty($user->image_path) ? $user->image_path : '/imgs/default-avatar.jpg' ?>" 
                                         class="img-fluid rounded-circle mb-3" 
                                         style="width: 150px; height: 150px; object-fit: cover;">
-                                    
                                     <br>
                                     <label for="profilePicture" class="btn btn-sm btn-outline-primary mt-2">Alterar Foto</label>
                                     <input type="file" id="profilePicture" name="image" accept="image/*" class="d-none">
                                 </div>
-                            
-                            <div class="mb-3">
+
+                                <div class="mb-3">
                                     <label class="form-label"><strong>Nome</strong></label>
                                     <input type="text" name="nome" value="<?= htmlspecialchars($user->name) ?>" class="form-control">
                                 </div>
@@ -53,8 +51,8 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" name="decision" class="btn btn-success" value="save">Salvar usuário</button>
-                                    <button type="submit" name="decision" class="btn btn-danger" value="delete">Excluir usuário</button>
+                                    <button type="submit" name="decision" class="btn btn-success btn-space" value="save">Salvar usuário</button>
+                                    <button type="submit" name="decision" class="btn btn-danger btn-space" value="delete">Excluir usuário</button>
                                 </div>
                             </form>
                         </div>
@@ -87,3 +85,26 @@ document.getElementById("profilePicture").addEventListener("change", function(ev
     }
 });
 </script>
+
+<style>
+/* Garantir que o conteúdo dentro do card fique centralizado */
+.card-body 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Para os botões ficarem alinhados ao centro */
+.btn-space 
+{
+    margin: 5px;
+}
+
+/* Centralizar o texto da seção de foto */
+.text-center 
+{
+    text-align: center;
+}
+</style>
