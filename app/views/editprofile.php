@@ -16,22 +16,22 @@
             </div>
                 <div class="card-body">
                     <div class="row">
-                        <!-- Foto do Usuário -->
-                        <div class="col-md-4 text-center">
-                            <img src="<?= $user->profile_picture ?? 'default-avatar.png' ?>" 
-                                 alt="Foto de Perfil" 
-                                 class="img-fluid rounded-circle mb-3" 
-                                 style="width: 150px; height: 150px;">
-                            <div>
-                                <label for="profilePicture" class="btn btn-sm btn-outline-primary mt-2">Alterar Foto</label>
-                                <input type="file" id="profilePicture" name="profile_picture" class="d-none">
-                            </div>
-                        </div>
-
                         <!-- Informações do Usuário -->
                         <div class="col-md-8">
                             <form action="/editprofile" method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
+                                <!-- Foto do Usuário -->
+                                <div class="text-center">
+                                    <!-- Foto do Usuário -->
+                                    <img id="profileImage" src="<?= !empty($user->image_path) ? $user->image_path : '/imgs/default-avatar.jpg' ?>" 
+                                        class="img-fluid rounded-circle mb-3" 
+                                        style="width: 150px; height: 150px; object-fit: cover;">
+                                    
+                                    <br>
+                                    <label for="profilePicture" class="btn btn-sm btn-outline-primary mt-2">Alterar Foto</label>
+                                    <input type="file" id="profilePicture" name="image" accept="image/*" class="d-none">
+                                </div>
+                            
+                            <div class="mb-3">
                                     <label class="form-label"><strong>Nome</strong></label>
                                     <input type="text" name="nome" value="<?= htmlspecialchars($user->name) ?>" class="form-control">
                                 </div>
@@ -73,5 +73,17 @@ document.getElementById("togglePassword").addEventListener("click", function() {
     let passwordInput = document.getElementById("passwordInput");
 
     passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+});
+
+// Abrir seletor de arquivo ao clicar no botão "Alterar Foto"
+document.getElementById("profilePicture").addEventListener("change", function(event) {
+    let file = event.target.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById("profileImage").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 });
 </script>

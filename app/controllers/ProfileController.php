@@ -56,10 +56,12 @@ class ProfileController
         switch($params->decision)
         {
             case 'save':
+                $imagePathinLocal = $this->getPathUserImage();
                 $conn = Banco::getConection();
-                $sql = $conn->prepare("UPDATE users SET name = :name WHERE id = :id");
+                $sql = $conn->prepare("UPDATE users SET name = :name, image_path = :image_path WHERE id = :id");
                 $sql->bindParam(':name', $params->nome);
                 $sql->bindParam(':id', $user->id);
+                $sql->bindParam(':image_path', $imagePathinLocal);
                 $sql->execute();
                 break;
             case 'delete':
@@ -80,5 +82,28 @@ class ProfileController
         }
         
         header("Location: /");
+    }
+
+    public function getPathUserImage()
+    {
+        $PathUploadImages = __DIR__ . "/../../public/imgs/users/";
+        
+        // Cria a pasta caso ela nao exista
+        if(!is_dir($PathUploadImages))
+        {
+            mkdir($PathUploadImages, 0777, true);
+        }
+
+        if(!empty($_FILES['image']['name']))
+        {
+            $fileInformation = $_FILES['image'];
+            $fileName = uniqid() . "_" . basename($fileInformation['name']);
+            $filePath = "/imgs/users/" . $fileName;
+
+            if(move_uploaded_file($fileInformation['tmp_name'], $PathUploadImages . $fileName))
+            {
+                return $filePath;
+            }
+        }
     }
 }

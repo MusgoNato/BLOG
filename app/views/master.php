@@ -8,7 +8,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100"> 
 
-    <h1>Bem Vindo <?= $_SESSION['usuario']['nome'] ?></h1>
+    <h1>Bem Vindo(a) <?= $_SESSION['usuario']['nome'] ?></h1>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">

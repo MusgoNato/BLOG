@@ -19,7 +19,7 @@
                     <div class="row">
                         <!-- Foto do Usuário (Se tiver) -->
                         <div class="col-md-4 text-center">
-                            <img src="<?= $user->profile_picture ?? 'default-avatar.png' ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                            <img src="<?= $user->image_path ?? '/imgs/default-avatar.jpg' ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                         </div>
                         <!-- Informações do Usuário -->
                         <div class="col-md-8">
