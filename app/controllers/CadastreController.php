@@ -35,6 +35,25 @@ class CadastreController
             header("Location: /");
         }
 
+        // Colocar PHPmailer ao inves disso
+
+        $to = "hugojosue03@gmail.com";
+        $subject = "Email enviado do blog";
+        $message = "Oi, este é um teste de envio de e-mail.";
+        $headers = "From: seuemail@seudominio.com\r\n" .
+                "Reply-To: seuemail@seudominio.com\r\n" .
+                "X-Mailer: PHP/" . phpversion();
+
+        $retornoemail = mail($to, $subject, $message, $headers);
+
+        if ($retornoemail) {
+            echo "Email enviado com sucesso!";
+            die;
+        } else {
+            echo "Falha no envio do email.";
+            die;
+        }
+
         $conn = Banco::getConection();
         $sql = $conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
         $sql->bindParam(':name', $params->nome);
