@@ -2,6 +2,8 @@
 
 
 namespace app\controllers;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 use app\database\Banco;
 
 class CadastreController
@@ -35,24 +37,7 @@ class CadastreController
             header("Location: /");
         }
 
-        // Colocar PHPmailer ao inves disso
-
-        $to = "hugojosue03@gmail.com";
-        $subject = "Email enviado do blog";
-        $message = "Oi, este é um teste de envio de e-mail.";
-        $headers = "From: seuemail@seudominio.com\r\n" .
-                "Reply-To: seuemail@seudominio.com\r\n" .
-                "X-Mailer: PHP/" . phpversion();
-
-        $retornoemail = mail($to, $subject, $message, $headers);
-
-        if ($retornoemail) {
-            echo "Email enviado com sucesso!";
-            die;
-        } else {
-            echo "Falha no envio do email.";
-            die;
-        }
+        $this->SendEmailforUser();
 
         $conn = Banco::getConection();
         $sql = $conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
@@ -64,4 +49,41 @@ class CadastreController
 
         return Controller::view("login", ["ERROR_MSG_LOGIN" => ""]);
     }   
+
+    protected function SendEmailforUser()
+    {
+        $email = new PHPMailer(true);
+        
+        try
+        {
+            // Configuração do servidor email
+            $email->isSMTP();
+            $email->Host = 'smtp.gmail.com';
+            $email->Port = 587;
+            $email->SMTPSecure = 'tls';
+            $email->SMTPAuth = true;
+            $email->Username = 'pedrintestepedrin@gmail.com'; // email para envios
+            $email->Password = 'rvve zdod uldb peio'; // senha de acesso a app concedida pelo email
+
+            // Corpo
+            $email->setFrom('pedrintestepedrin@gmail.com', 'Hugo josue lema das neves');
+            $email->addReplyTo('pedrintestepedrin@gmail.com', 'hugo josue lema das neves');
+            $email->addAddress('pedrintestepedrin@gmail.com', 'asd');
+            $email->addCC('pedrintestepedrin@gmail.com', 'asddddd');
+            $email->addBCC('pedrintestepedrin@gmail.com', 'dfggf');
+            $email->Subject = 'Envio de email';
+            $email->CharSet = 'UTF-8';
+            $email->msgHTML('<p>Ola tudo bom?asdasdasd</p>');
+            $email->AltBody = 'OIEEEEEEEEE';
+
+        }catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+
+        if(!$email->send())
+        {
+            die('Erro no envio do email');
+        }
+    }
 }
