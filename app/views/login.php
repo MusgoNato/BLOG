@@ -43,6 +43,11 @@
                                 <?php echo $ERROR_MSG_LOGIN; ?>
                             </div>
                         <?php endif; ?>
+                        <?php if(isset($SUCESS_EMAIL_VALIDATE)): ?>
+                            <div class="alert alert-danger mt-3 text-center" role="alert">
+                                <?php echo $SUCESS_EMAIL_VALIDATE; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

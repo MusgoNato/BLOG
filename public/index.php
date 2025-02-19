@@ -1,5 +1,6 @@
 <?php
 
+use app\controllers\CadastreController;
 use app\database\Banco;
 
 require_once '../vendor/autoload.php';
@@ -61,7 +62,6 @@ try
 {
     echo "Nao foi possivel conectar ao site : " . $e->getMessage(); 
 }
-
 
 
 ?>

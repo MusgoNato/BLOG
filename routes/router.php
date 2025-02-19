@@ -49,7 +49,7 @@ $routers =
         "/editprofile" => fn() => load("ProfileController", "EditProfile"),
         "/myposts" => fn() => load("MyPostsController", "index"),
         "/myposts/newpost" => fn() => load("MyPostsController", "newPost"),
-        "/post/([0-9]+)" => fn($id) => load("PostsController", "showSinglePost", (int)$id),
+        "/post/([0-9]+)" => fn($id) => load("PostsController", "showSinglePost", (int)$id), 
     ],
 
     "POST" =>
@@ -59,6 +59,8 @@ $routers =
         "/editprofile" => fn() => load("ProfileController", "UpdateUser"),
         "/myposts/newpost" => fn() => load("MyPostsController", "PublicNewPost"),
         "/myposts/editpost" => fn() => load("MyPostsController", "UpdatePost"),    
+        "/newCadastre/Verification" => fn() => load("TokenController", "SendEmailforUser"),
+        "/newCadastre/Verification/validation" => fn() => load("TokenController", "validateEmailToken"),
     ]
 ];
 

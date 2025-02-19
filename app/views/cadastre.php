@@ -16,7 +16,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <form action="/newCadastre" method="post">
+                        <form action="/newCadastre/Verification" method="post">
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" name="nome" id="nome" class="form-control" placeholder="Insira seu nome" required>
