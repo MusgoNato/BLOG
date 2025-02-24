@@ -14,6 +14,7 @@
         <div class="col-md-4 mb-4 post-card">
             <div class="card">
                 <div class="card-body">
+                <img src="<?= $post['image_path'] ?? '/imgs/default-post.jpg' ?>" alt="Imagem do Post" class="img-fluid" style="width: 100%; height: 250px; object-fit: contain; border-radius: 5px;">
                     <h5 class="card-title"><?= $post['title'] ?></h5>
                     <p class="card-text"><?= substr($post['content'], 0, 100) . '...' ?></p>
                     <p class="card-text">

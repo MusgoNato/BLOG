@@ -85,14 +85,14 @@ class ProfileController
         header("Location: /");
     }
 
-    public function getPathUserImage()
+    public static function getPathUserImage()
     {
-        $PathUploadImages = __DIR__ . "/../../public/imgs/users/";
-        
+        $PathUploadImagesUser = __DIR__ . "/../../public/imgs/users/";
+
         // Cria a pasta caso ela nao exista
-        if(!is_dir($PathUploadImages))
+        if(!is_dir($PathUploadImagesUser))
         {
-            mkdir($PathUploadImages, 0777, true);
+            mkdir($PathUploadImagesUser, 0777, true);
         }
 
         if(!empty($_FILES['image']['name']))
@@ -101,7 +101,7 @@ class ProfileController
             $fileName = uniqid() . "_" . basename($fileInformation['name']);
             $filePath = "/imgs/users/" . $fileName;
 
-            if(move_uploaded_file($fileInformation['tmp_name'], $PathUploadImages . $fileName))
+            if(move_uploaded_file($fileInformation['tmp_name'], $PathUploadImagesUser . $fileName))
             {
                 return $filePath;
             }
