@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <!-- Foto do Usuário (Se tiver) -->
+                        <!-- Foto do Usuário -->
                         <div class="col-md-4 text-center">
                             <img src="<?= $user->image_path ?? '/imgs/default-avatar.jpg' ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
                         </div>
@@ -25,8 +25,11 @@
                         <div class="col-md-8">
                             <p><strong>Nome:</strong> <?= htmlspecialchars($user->name) ?></p>
                             <p><strong>Email:</strong> <?= htmlspecialchars($user->email) ?></p>
-                            <p><strong>Data de Criação:</strong> <?= date('d/m/Y H:i', strtotime(htmlspecialchars($user->created_at))) ?></p>
-                            <p><strong>Última atualização:</strong> <?= date('d/m/Y H:i', strtotime(htmlspecialchars($user->updated_at))) ?></p>
+                            <p><strong>Data de Criação:</strong> <?= date('d/m/Y H:i', strtotime($user->created_at)) ?></p>
+                            <p><strong>Última atualização:</strong> <?= date('d/m/Y H:i', strtotime($user->updated_at)) ?></p>
+                            <hr>
+                            <h5 class="text-center">Dashboard</h5>
+                            <p><strong>Posts Criados:</strong> <?=$total_posts?></p>
                         </div>
                     </div>
                 </div>

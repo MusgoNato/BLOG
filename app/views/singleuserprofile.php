@@ -18,6 +18,7 @@
                 <img src="<?= $user->image_path ?? '/imgs/default-avatar.jpg' ?>" class="rounded-circle mb-3" width="150" height="150">
                 <p><strong>Email:</strong> <?= htmlspecialchars($user->email) ?></p>
                 <p><strong>Data de Cadastro:</strong> <?= date("d/m/Y", strtotime($user->created_at)) ?></p>
+                <p><strong>Posts Criados: </strong><?= $total_posts ?></p>
             </div>
             <div class="card-footer text-center">
                 <a href="/<?= htmlspecialchars($user->id) ?>" class="btn btn-primary">Enviar Mensagem</a>

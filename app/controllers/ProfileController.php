@@ -14,9 +14,10 @@ class ProfileController
      */
     public function ShowProfile()
     {   
-        $user = $this->getUSerProfile();    
+        $user = $this->getUSerProfile(); 
+        $total_posts = $this->getTotalPostsFromProfile($user->id);   
 
-        return Controller::view("userprofile", ["user" => $user]);
+        return Controller::view("userprofile", ["user" => $user, "total_posts" => $total_posts]);
     
     }
 
@@ -111,12 +112,14 @@ class ProfileController
     {
         session_start();
         $user = $this->getSingleProfile($idUser);
+        $total_posts = $this->getTotalPostsFromProfile($idUser);
+        
         if($user)
         {
-            return Controller::view("singleuserprofile", ["user" => $user]);
+            return Controller::view("singleuserprofile", ["user" => $user, "total_posts" => $total_posts]);
         }
         
-        die("nao existe usuario");
+        return Controller::view("errorpage");
     }
 
     public function getSingleProfile($idUser)
@@ -126,5 +129,15 @@ class ProfileController
         $sql->execute();
 
         return $sql->fetchObject();
+    }
+
+    public function getTotalPostsFromProfile($userID)
+    {
+        $conn = Banco::getConection();
+        $sql = $conn->prepare("SELECT COUNT(*) FROM posts WHERE user_id = :user_id");
+        $sql->bindParam(':user_id', $userID);
+        $sql->execute();
+        $total_posts = $sql->fetchColumn();
+        return $total_posts;
     }
 }
