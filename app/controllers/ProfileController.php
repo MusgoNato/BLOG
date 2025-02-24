@@ -106,4 +106,25 @@ class ProfileController
             }
         }
     }
+
+    public function ShowUser($params, $idUser)
+    {
+        session_start();
+        $user = $this->getSingleProfile($idUser);
+        if($user)
+        {
+            return Controller::view("singleuserprofile", ["user" => $user]);
+        }
+        
+        die("nao existe usuario");
+    }
+
+    public function getSingleProfile($idUser)
+    {
+        $conn = Banco::getConection();
+        $sql = $conn->prepare("SELECT * FROM users WHERE id = '{$idUser}'");
+        $sql->execute();
+
+        return $sql->fetchObject();
+    }
 }

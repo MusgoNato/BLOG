@@ -50,7 +50,7 @@ $routers =
         "/myposts" => fn() => load("MyPostsController", "index"),
         "/myposts/newpost" => fn() => load("MyPostsController", "newPost"),
         "/post/([0-9]+)" => fn($id) => load("PostsController", "showSinglePost", (int)$id), 
-        "/profile/([0-9]+)" => fn($id) => load("ProfileController", "ShowUser"),
+        "/profile/([0-9]+)" => fn($id) => load("ProfileController", "ShowUser", (int)$id),
     ],
 
     "POST" =>
