@@ -20,7 +20,9 @@
                             <!-- Formulário de Token -->
                             <form action="/newCadastre/Verification/validation" method="post">
                                 <div class="mb-3">
+                                    <input type="hidden" name="nome" value="<?= htmlspecialchars($user->nome) ?>">
                                     <input type="hidden" name="email" value="<?= htmlspecialchars($user->email) ?>">
+                                    <input type="hidden" name="senha" value="<?= htmlspecialchars($user->senha) ?>">
                                     <label for="token" class="form-label">Token de Verificação</label>
                                     <input type="text" name="token" id="token" class="form-control" placeholder="Insira o token" required>
                                 </div>

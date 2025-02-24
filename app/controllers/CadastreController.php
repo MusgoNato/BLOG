@@ -26,7 +26,7 @@ class CadastreController
      * Cria cadastro do usuario
      * @param object $params
      */
-    public function CreateUser(object $params)
+    public static function CreateUser(object $params)
     {
         session_start();
 
