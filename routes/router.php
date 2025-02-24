@@ -50,16 +50,16 @@ $routers =
         "/myposts" => fn() => load("MyPostsController", "index"),
         "/myposts/newpost" => fn() => load("MyPostsController", "newPost"),
         "/post/([0-9]+)" => fn($id) => load("PostsController", "showSinglePost", (int)$id), 
+        "/profile/([0-9]+)" => fn($id) => load("ProfileController", "ShowUser"),
     ],
 
     "POST" =>
     [
         "/" => fn() => load("AutenticationController", "VerifyUser"),
-        "/newCadastre" => fn() => load("CadastreController", "Createuser"),
+        "/newCadastre" => fn() => load("TokenController", "SendEmailforUser"),
         "/editprofile" => fn() => load("ProfileController", "UpdateUser"),
         "/myposts/newpost" => fn() => load("MyPostsController", "PublicNewPost"),
         "/myposts/editpost" => fn() => load("MyPostsController", "UpdatePost"),    
-        "/newCadastre/Verification" => fn() => load("TokenController", "SendEmailforUser"),
         "/newCadastre/Verification/validation" => fn() => load("TokenController", "validateEmailToken"),
     ]
 ];

@@ -16,7 +16,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <form action="/newCadastre/Verification" method="post">
+                        <form action="/newCadastre" method="post">
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" name="nome" id="nome" class="form-control" placeholder="Insira seu nome" required>
@@ -36,6 +36,12 @@
                                 <button type="submit" class="btn btn-primary w-100">Enviar</button>
                             </div>
                         </form>
+
+                        <?php if(isset($ERROR_MSG_EMAIL)): ?>
+                            <div class="alert alert-danger mt-3 text-center" role="alert">
+                                <?php echo $ERROR_MSG_EMAIL; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
