@@ -61,6 +61,7 @@ $routers =
         "/myposts/newpost" => fn() => load("MyPostsController", "PublicNewPost"),
         "/myposts/editpost" => fn() => load("MyPostsController", "UpdatePost"),    
         "/newCadastre/Verification/validation" => fn() => load("TokenController", "validateEmailToken"),
+        "/likepost" => fn() => load("PostsController", "likePost"),
     ]
 ];
 

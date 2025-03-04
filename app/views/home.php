@@ -25,8 +25,23 @@
                             </a>
                         </small>
                     </p>
-                    <a href="/post/<?= htmlspecialchars($post['id']) ?>" class="btn btn-primary">Ler mais</a>
+                    <!-- Linha para "Ler mais" + Likes -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="/post/<?= htmlspecialchars($post['id']) ?>" class="btn btn-primary">Ler mais</a>
+
+                        <!-- Sistema de Curtidas -->
+                        <div>
+                            <button class="btn btn-success" onclick="likePost(<?= $post['id'] ?>)">
+                                👍 <span id="likes-<?= $post['id'] ?>"><?= $post['likes'] ?></span>
+                            </button>
+                            <button class="btn btn-danger" onclick="dislikePost(<?= $post['id'] ?>)">
+                                👎 <span id="dislikes-<?= $post['id'] ?>"><?= $post['dislikes'] ?></span>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
+                
             </div>
         </div>
     <?php endforeach; ?>
@@ -60,6 +75,48 @@ document.querySelectorAll(".post-card").forEach(card => {
         card.querySelector(".card").classList.remove("shadow-lg", "border-primary");
     });
 });
+
+// Atualiza os números de likes e dislikes sem recarregar a página
+function updateLikeDislikeUI(postId, likes, dislikes) {
+    document.getElementById(`likes-${postId}`).innerText = likes;
+    document.getElementById(`dislikes-${postId}`).innerText = dislikes;
+}
+
+function likePost(postId) {
+    fetch('/likepost', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ post_id: postId, type: 'like' })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            updateLikeDislikeUI(postId, data.likes, data.dislikes);
+        } else {
+            alert("Erro ao curtir o post!");
+        }
+    })
+    .catch(error => console.error("Erro:", error));
+}
+
+function dislikePost(postId) {
+    fetch('/likepost', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ post_id: postId, type: 'dislike' })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            updateLikeDislikeUI(postId, data.likes, data.dislikes);
+        } else {
+            alert("Erro ao dar dislike no post!");
+        }
+    })
+    .catch(error => console.error("Erro:", error));
+}
+
+
 </script>
 
 <?php $this->end() ?>
