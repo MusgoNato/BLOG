@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use app\database\Banco;
+use Error;
 use PDO;
 use PDOException;
 
@@ -80,63 +81,93 @@ class PostsController
 
 
     public function likePost($params)
-{
-    session_start();
-    header('Content-Type: application/json');
+    {
+        session_start();
+        header('Content-Type: application/json');
 
-    $data = json_decode(file_get_contents("php://input"), true);
+        // Recebimento de mensagens do front quando algum evento acontecer no sistema
+        $data = json_decode(file_get_contents("php://input"), true);
 
-    if (!empty($data)) {
-        $userId = $_SESSION['usuario']['id'];
-        $postId = (int) $data['post_id'];
-        $type = $data['type']; // "like" ou "dislike"
+        if(!empty($data)) 
+        {
+            $userId = $_SESSION['usuario']['id'];
+            $postId = (int) $data['post_id'];
+            $type = $data['type']; // "like" ou "dislike"
 
-        try {
-            $conn = Banco::getConection();
-  
-            // Verifica se já existe um like/dislike
-            $sqlCheck = $conn->prepare("SELECT * FROM likes WHERE post_id = :postid AND user_id = :userid");
-            $sqlCheck->execute([':postid' => $postId, ':userid' => $userId]);
-            $existingLike = $sqlCheck->fetch(PDO::FETCH_ASSOC);
+            try 
+            {
+                $conn = Banco::getConection();
+    
+                // Verifica se já existe um like/dislike
+                $sqlCheck = $conn->prepare("SELECT * FROM likes WHERE post_id = :postid AND user_id = :userid");
+                $sqlCheck->execute([':postid' => $postId, ':userid' => $userId]);
+                $existingLike = $sqlCheck->fetch(PDO::FETCH_ASSOC);
 
-            if ($existingLike) {
-                if ($existingLike['type'] !== $type) {
-                    
-                    // Atualiza o tipo de like
-                    $sqlUpdate = $conn->prepare("UPDATE likes SET type = :type WHERE post_id = :postid AND user_id = :userid");
-                    $sqlUpdate->execute([':postid' => $postId, ':type' => $type, ':userid' => $userId]);
-                    error_log("update");
-                } else {
-                    // Remove o like/dislike se clicar novamente
-                    $sqlDelete = $conn->prepare("DELETE FROM likes WHERE post_id = :postid AND user_id = :userid");
-                    $sqlDelete->execute([':postid' => $postId, ':userid' => $userId]);
-                    error_log("delete");
+                if($existingLike) 
+                {
+                    if($existingLike['type'] !== $type) 
+                    {
+                        
+                        // Atualiza o tipo de like
+                        $sqlUpdate = $conn->prepare("UPDATE likes SET type = :type WHERE post_id = :postid AND user_id = :userid");
+                        $sqlUpdate->execute([':postid' => $postId, ':type' => $type, ':userid' => $userId]);
+                        error_log("update");
+                    }else 
+                    {
+                        // Remove o like/dislike se clicar novamente
+                        $sqlDelete = $conn->prepare("DELETE FROM likes WHERE post_id = :postid AND user_id = :userid");
+                        $sqlDelete->execute([':postid' => $postId, ':userid' => $userId]);
+                        error_log("delete");
+                    }
+                }else 
+                {
+                    // Adiciona um novo like/dislike
+                    $sqlInsert = $conn->prepare("INSERT INTO likes (post_id, type, user_id) VALUES (:postid, :type, :userid)");
+                    $sqlInsert->execute([':postid' => $postId, ':type' => $type, ':userid' => $userId]);
+                    error_log("Adicionou");
                 }
-            } else {
-                // Adiciona um novo like/dislike
-                $sqlInsert = $conn->prepare("INSERT INTO likes (post_id, type, user_id) VALUES (:postid, :type, :userid)");
-                $sqlInsert->execute([':postid' => $postId, ':type' => $type, ':userid' => $userId]);
-                error_log("Adicionou");
+                
+                if($type == 'like')
+                {
+                    // Inserindo as informações para atualizações das notificações no banco de dados
+                    $sqlOwner = $conn->prepare("SELECT user_id FROM posts WHERE id = :postid");
+                    $sqlOwner->execute([':postid' => $postId]);
+                    $postOwner = $sqlOwner->fetch(PDO::FETCH_ASSOC);
+                    
+                    if($postOwner && $postOwner['user_id'] != $userId)
+                    {
+                        $sqlnotify = $conn->prepare("INSERT INTO notifications (user_id, message, type, related_id, created_at) VALUES (:owner_id, :message, 'like', :postid, NOW())");
+                        $username = $_SESSION['usuario']['nome'] ?? 'Alguém';
+                        
+
+                        $sqlnotify->execute([':owner_id' => $postOwner['user_id'],
+                        ':message' => "$username curitu seu post",
+                        ':postid' => $postId
+                    ]);
+                    }
+                }
+
+                 // Retorna a contagem atualizada
+                 $sqlCount = $conn->prepare("SELECT 
+                 SUM(CASE WHEN type = 'like' THEN 1 ELSE 0 END) AS likes, 
+                 SUM(CASE WHEN type = 'dislike' THEN 1 ELSE 0 END) AS dislikes
+                 FROM likes WHERE post_id = :postid");
+                $sqlCount->execute([':postid' => $postId]);
+                $counts = $sqlCount->fetch(PDO::FETCH_ASSOC);
+                
+                // Retorno para a requisição feita pelo Ajax
+                echo json_encode([
+                    "success" => true,
+                    "likes" => $counts['likes'] ?? 0,
+                    "dislikes" => $counts['dislikes'] ?? 0
+                ]);
+
+
+            }catch(PDOException $e) 
+            {
+                echo json_encode(["success" => false, "error" => $e->getMessage()]);
             }
-
-            // Retorna a contagem atualizada
-            $sqlCount = $conn->prepare("SELECT 
-                SUM(CASE WHEN type = 'like' THEN 1 ELSE 0 END) AS likes, 
-                SUM(CASE WHEN type = 'dislike' THEN 1 ELSE 0 END) AS dislikes
-                FROM likes WHERE post_id = :postid");
-            $sqlCount->execute([':postid' => $postId]);
-            $counts = $sqlCount->fetch(PDO::FETCH_ASSOC);
-
-            echo json_encode([
-                "success" => true,
-                "likes" => $counts['likes'] ?? 0,
-                "dislikes" => $counts['dislikes'] ?? 0
-            ]);
-
-        } catch (PDOException $e) {
-            echo json_encode(["success" => false, "error" => $e->getMessage()]);
         }
-    }
 }
 
     

@@ -10,6 +10,10 @@
                 <div class="card-body">
                     <form action="#" method="POST">
                         <input type="hidden" name="idpost" value="<?= htmlspecialchars($post->id) ?>">
+                        
+                        <!-- Img do post -->
+                        <img src="<?= $post->image_path ?? '/imgs/default-post.jpg' ?>" alt="Imagem do Post" class="img-fluid" style="width: 100%; height: 250px; object-fit: contain; border-radius: 5px;">
+
                         <!-- Título do Post -->
                         <div class="mb-3">
                             <label for="titulo" class="form-label"><strong>Título</strong></label>

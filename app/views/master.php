@@ -29,6 +29,16 @@
                         <a class="nav-link" href="/userprofile">Meu Perfil</a>
                     </li>
                 </ul>
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="notificacoesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell-fill me-1"></i> Notificações
+                        <span id="contNotifications" class="badge bg-danger rounded-pill"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificacoesDropdown">
+                        <li><a class="dropdown-item" href="#">Nova mensagem recebida</a></li>
+                        <li><a class="dropdown-item text-center" href="#">Ver todas</a></li>
+                    </ul>
+                </div>
                 <span class="navbar-text me-3 text-white">Olá, <?= $_SESSION['usuario']['nome'] ?>!</span>
                 <a href="/logout" class="btn btn-outline-danger">Sair</a>
             </div>
@@ -54,4 +64,27 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    // Atualiza o contador de notificações
+    function updateNotification(){
+        fetch('/Notification/get', {
+        method: "GET",
+        headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.sucess){
+            document.getElementById('contNotifications').innerText = data.count;
+        }
+        console.log(data);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    };
+
+    const intervaloId = setInterval(updateNotification, 10000);
+</script>
+
 </html>

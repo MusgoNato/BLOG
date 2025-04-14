@@ -31,7 +31,7 @@
 
                         <!-- Sistema de Curtidas -->
                         <div>
-                            <button class="btn btn-success" onclick="likePost(<?= $post['id'] ?>)">
+                            <button class="btn btn-success" onclick="likePost(<?= $post['id']?>)">
                                 👍 <span id="likes-<?= $post['id'] ?>"><?= $post['likes'] ?></span>
                             </button>
                             <button class="btn btn-danger" onclick="dislikePost(<?= $post['id'] ?>)">
@@ -82,6 +82,7 @@ function updateLikeDislikeUI(postId, likes, dislikes) {
     document.getElementById(`dislikes-${postId}`).innerText = dislikes;
 }
 
+// Requisição ajax
 function likePost(postId) {
     fetch('/likepost', {
         method: "POST",
@@ -89,6 +90,7 @@ function likePost(postId) {
         body: JSON.stringify({ post_id: postId, type: 'like' })
     })
     .then(response => response.json())
+    // Capta resposta do backend
     .then(data => {
         if (data.success) {
             updateLikeDislikeUI(postId, data.likes, data.dislikes);
@@ -107,9 +109,9 @@ function dislikePost(postId) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
+        if(data.success) {
             updateLikeDislikeUI(postId, data.likes, data.dislikes);
-        } else {
+        }else {
             alert("Erro ao dar dislike no post!");
         }
     })
@@ -122,6 +124,7 @@ function dislikePost(postId) {
 <?php $this->end() ?>
 
 <style>
+
 /* Título com estilo futurista */
 .space-title 
 {
