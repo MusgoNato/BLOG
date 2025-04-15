@@ -35,8 +35,7 @@
                         <span id="contNotifications" class="badge bg-danger rounded-pill"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificacoesDropdown">
-                        <li><a class="dropdown-item" href="#">Nova mensagem recebida</a></li>
-                        <li><a class="dropdown-item text-center" href="#">Ver todas</a></li>
+                        <li><a class="dropdown-item" href="#">Nenhuma Mensagem</a></li>
                     </ul>
                 </div>
                 <span class="navbar-text me-3 text-white">Olá, <?= $_SESSION['usuario']['nome'] ?>!</span>
@@ -76,6 +75,35 @@
     .then(data => {
         if(data.sucess){
             document.getElementById('contNotifications').innerText = data.count;
+            // Seleciona a lista de notificações no dropdown
+            const notificationList = document.querySelector('.dropdown-menu');
+
+            // Limpa as notificações existentes (exceto o item "Ver todas")
+            notificationList.innerHTML = '<li><a class="dropdown-item text-center" href="#">Ver todas</a></li>';
+
+            // Verifica se há notificações
+            if (data.notifications && data.notifications.length > 0) {
+                // Adiciona cada notificação como um item na lista
+                data.notifications.forEach(notification => {    
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.className = 'dropdown-item';
+                    link.href = `/profile/${notification.sender_id}`; // Link para o usuario que curtiu
+                    link.innerText = notification.message;
+                    listItem.appendChild(link);
+                    notificationList.insertBefore(listItem, notificationList.firstChild); // Adiciona no topo
+                });
+            } else {
+                
+                // Caso não haja notificações
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.className = 'dropdown-item';
+                link.href = '#';
+                link.innerText = 'Nenhuma nova notificação';
+                listItem.appendChild(link);
+                notificationList.insertBefore(listItem, notificationList.firstChild);
+            }
         }
         console.log(data);
     })

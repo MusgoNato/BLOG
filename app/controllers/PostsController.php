@@ -141,7 +141,7 @@ class PostsController
                         
 
                         $sqlnotify->execute([':owner_id' => $postOwner['user_id'],
-                        ':message' => "$username curitu seu post",
+                        ':message' => "$username curtiu seu post",
                         ':postid' => $postId
                     ]);
                     }

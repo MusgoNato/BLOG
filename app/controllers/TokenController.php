@@ -21,13 +21,15 @@ class TokenController
     
                 // Gero o token
                 $tokenVerification = $this->randomTokenforEmail($params);
-    
+                
+                // email password = nliSYvplusK
+
                 $email->Host = 'smtp.gmail.com';
                 $email->Port = 587;
                 $email->SMTPSecure = 'tls';
                 $email->SMTPAuth = true;
-                $email->Username = 'pedrintestepedrin@gmail.com'; // email para envios
-                $email->Password = 'tzro bmqz bkav nunh'; // senha de acesso a app concedida pelo email
+                $email->Username = 'blogapp64@gmail.com'; // email para envios
+                $email->Password = 'evyc zwjg idby kenw'; // senha de acesso a app concedida pelo email
     
                 // Corpo
                 $email->setFrom($params->email, 'Hugo Blog');

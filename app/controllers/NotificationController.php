@@ -29,14 +29,16 @@ class NotificationController
         $sql = $conn->prepare("
             SELECT 
                 n.id, n.message, n.type, n.related_id, n.created_at,
-                u.id as sender_id, u.name as sender_name,
+                l.user_id as sender_id, u.name as sender_name,  -- Pegando do like
                 p.id as post_id, p.title as post_title
             FROM 
                 notifications n
             JOIN 
-                users u ON n.user_id = u.id
-            JOIN 
                 posts p ON n.related_id = p.id
+            JOIN 
+                likes l ON p.id = l.post_id  -- Junta com a tabela de likes
+            JOIN 
+                users u ON l.user_id = u.id   -- Pega o usuário que deu o like
             WHERE 
                 p.user_id = :user_id AND n.type = 'like'
             ORDER BY 
@@ -48,7 +50,7 @@ class NotificationController
         $sql->execute();
         
         $notifications = $sql->fetchAll(PDO::FETCH_ASSOC);
-        
+        error_log(json_encode($notifications));
         $formattedNotifications = [];
         foreach ($notifications as $notification) {
             $formattedNotifications[] = [
